@@ -1,0 +1,6 @@
+{
+  "name": "Noor Cosmetics - Crème Anti-Taches & Mélasma",
+  "description": "Landing page officielle de la Crème Anti-Taches & Mélasma par Noor Cosmetics au Maroc. Acide Kojique, Alpha-Arbutine & Vitamine C. Paiement à la livraison et livraison gratuite partout au Maroc.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
