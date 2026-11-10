@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Star, Truck, ShieldCheck, Check, Sparkles, MessageCircle, ArrowRight } from 'lucide-react';
 import { ProductPack } from '../types';
 import { PRODUCT_PACKS, PRODUCT_IMAGE_PATH, PRODUCT_JAR_MOCKUP } from '../data/productData';
-
+import cosmeticModel from '../assets/images/cosmetic_model_radiant_skin_1794236918059.jpg';
+import botanicalIngredients from '../assets/images/botanical_ingredients_flatlay_1794236917874.jpg';
 interface HeroProductProps {
   selectedPack: ProductPack;
   onSelectPack: (pack: ProductPack) => void;
@@ -22,12 +23,12 @@ const GALLERY_VIEWS = [
     desc: 'Format généreux 50g — Texture crème fondante formulée pour tous types de peaux'
   },
   {
-    src: '/src/assets/images/cosmetic_model_radiant_skin_1794236918059.jpg',
+src: cosmeticModel,
     label: 'Résultat Peau Nette & Éclat',
     desc: 'Estompe le mélasma (kalf) et unifie le teint dès 14 à 28 jours d’utilisation'
   },
   {
-    src: '/src/assets/images/botanical_ingredients_flatlay_1794236917874.jpg',
+src: botanicalIngredients,
     label: 'Formulation Sûre & Efficace',
     desc: 'Sans hydroquinone agressive, sans parabènes nocifs, sans effet rebond'
   }
