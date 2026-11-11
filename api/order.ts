@@ -3,6 +3,9 @@ const GOOGLE_SCRIPT_URL =
 
 const SHARED_SECRET = process.env.NOOR_SHARED_SECRET;
 
+if (!SHARED_SECRET) {
+  throw new Error("La clé secrète NOOR_SHARED_SECRET est absente.");
+}
 export default async function handler(req: any, res: any) {
   if (req.method !== "POST") {
     return res.status(405).json({

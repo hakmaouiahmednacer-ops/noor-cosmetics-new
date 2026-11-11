@@ -23,19 +23,78 @@ export const CodOrderSection: React.FC<CodOrderSectionProps> = ({
   const [orderConfirmed, setOrderConfirmed] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!fullName.trim() || !phone.trim() || !address.trim()) return;
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      const generated = `NOOR-${Math.floor(10000 + Math.random() * 90000)}`;
-      setOrderNumber(generated);
-      setOrderConfirmed(true);
-    }, 900);
+  if (
+    !fullName.trim() ||
+    !phone.trim() ||
+    !address.trim() ||
+    (city === 'Autre ville au Maroc' && !customCity.trim())
+  ) {
+    return;
+  }
+
+  const skuByPackId: Record<string, string> = {
+    'pack-1': 'melasma',
+    'pack-2': 'pack-offre-cure',
+    'pack-3': 'pack-cure-complète-5650',
   };
 
+  const sku = skuByPackId[selectedPack.id];
+
+  if (!sku) {
+    alert("Offre non reconnue. Veuillez réessayer.");
+    return;
+  }
+
+  const digits = phone.replace(/\D/g, '');
+  const formattedPhone = digits.startsWith('212')
+    ? digits
+    : digits.startsWith('0')
+      ? `212${digits.slice(1)}`
+      : `212${digits}`;
+
+  setIsSubmitting(true);
+
+  try {
+    const response = await fetch('/api/order', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        full_name: fullName.trim(),
+        phone: formattedPhone,
+        address: `${address.trim()}, ${finalCity}`,
+        sku,
+        qte: 1,
+        price: selectedPack.price,
+        note: '',
+        delivery_note: notes.trim(),
+      }),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || "Échec de l'enregistrement.");
+    }
+
+    const generated = `NOOR-${Math.floor(10000 + Math.random() * 90000)}`;
+    setOrderNumber(generated);
+    setOrderConfirmed(true);
+
+  } catch (error) {
+    alert(
+      error instanceof Error
+        ? error.message
+        : "Impossible d'enregistrer votre commande. Réessayez."
+    );
+  } finally {
+    setIsSubmitting(false);
+  }
+};
   const finalCity = city === 'Autre ville au Maroc' ? customCity || 'Autre ville' : city;
 
   return (
