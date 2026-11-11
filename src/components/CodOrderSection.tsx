@@ -80,7 +80,12 @@ export const CodOrderSection: React.FC<CodOrderSectionProps> = ({
     if (!response.ok || !result.success) {
       throw new Error(result.message || "Échec de l'enregistrement.");
     }
-
+if (typeof window !== 'undefined' && window.fbq) {
+  window.fbq('track', 'Lead', {
+    value: selectedPack.price,
+    currency: 'MAD',
+  });
+}
     const generated = `NOOR-${Math.floor(10000 + Math.random() * 90000)}`;
     setOrderNumber(generated);
     setOrderConfirmed(true);
