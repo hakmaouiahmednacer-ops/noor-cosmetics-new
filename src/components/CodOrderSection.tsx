@@ -85,7 +85,7 @@ if (typeof window !== 'undefined' && window.fbq) {
     value: selectedPack.price,
     currency: 'MAD',
   });
-}
+}   
     const generated = `NOOR-${Math.floor(10000 + Math.random() * 90000)}`;
     setOrderNumber(generated);
     setOrderConfirmed(true);
