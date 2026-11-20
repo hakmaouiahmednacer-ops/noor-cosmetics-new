@@ -44,8 +44,7 @@ export const CodOrderSection: React.FC<CodOrderSectionProps> = ({
   const sku = skuByPackId[selectedPack.id];
 
   if (!sku) {
-    alert("Offre non reconnue. Veuillez réessayer.");
-    return;
+   
   }
 
   const digits = phone.replace(/\D/g, '');
@@ -86,6 +85,12 @@ if (typeof window !== 'undefined' && window.fbq) {
     currency: 'MAD',
   });
 }   
+if (typeof window !== 'undefined' && (window as any).ttq) {
+  (window as any).ttq.track('SubmitForm', {
+    value: selectedPack.price,
+    currency: 'MAD',
+  });
+}
     const generated = `NOOR-${Math.floor(10000 + Math.random() * 90000)}`;
     setOrderNumber(generated);
     setOrderConfirmed(true);
@@ -102,7 +107,8 @@ if (typeof window !== 'undefined' && window.fbq) {
 };
   const finalCity = city === 'Autre ville au Maroc' ? customCity || 'Autre ville' : city;
 
-  return (
+  return ( alert("Offre non reconnue. Veuillez réessayer.");
+    return;
     <section id="commander" className="py-16 md:py-24 bg-[#F5F8F5] border-y border-[#DECDB5]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
