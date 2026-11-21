@@ -107,8 +107,7 @@ if (typeof window !== 'undefined' && (window as any).ttq) {
 };
   const finalCity = city === 'Autre ville au Maroc' ? customCity || 'Autre ville' : city;
 
-  return ( alert("Offre non reconnue. Veuillez réessayer.");
-    return;
+  return ( 
     <section id="commander" className="py-16 md:py-24 bg-[#F5F8F5] border-y border-[#DECDB5]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
