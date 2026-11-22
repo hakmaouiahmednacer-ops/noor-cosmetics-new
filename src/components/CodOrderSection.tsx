@@ -23,19 +23,19 @@ export const CodOrderSection: React.FC<CodOrderSectionProps> = ({
   const [orderConfirmed, setOrderConfirmed] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
   useEffect(() => {
-  if (typeof window !== 'undefined' && (window as any).ttq) {
-    (window as any).ttq.track('ViewContent', {
-      contents: [
-        {
-          content_id: selectedPack.id,
-          content_type: 'product',
-          content_name: selectedPack.name,
-        },
-      ],
-      value: selectedPack.price,
-      currency: 'MAD',
-    });
-  }
+ if (typeof window !== 'undefined' && (window as any).ttq) {
+  (window as any).ttq.track('ViewContent', {
+    contents: [
+      {
+        content_id: selectedPack.id,
+        content_type: 'product',
+        content_name: selectedPack.name,
+      },
+    ],
+    value: selectedPack.price,
+    currency: 'MAD',
+  });
+}
 }, [selectedPack.id, selectedPack.name, selectedPack.price]);
 
  const handleSubmit = async (e: React.FormEvent) => {
@@ -94,21 +94,32 @@ export const CodOrderSection: React.FC<CodOrderSectionProps> = ({
     if (!response.ok || !result.success) {
       throw new Error(result.message || "Échec de l'enregistrement.");
     }
+
 if (typeof window !== 'undefined' && window.fbq) {
   window.fbq('track', 'Lead', {
     value: selectedPack.price,
     currency: 'MAD',
   });
-}   
+}
+
 if (typeof window !== 'undefined' && (window as any).ttq) {
   (window as any).ttq.track('Lead', {
+    contents: [
+      {
+        content_id: selectedPack.id,
+        content_type: 'product',
+        content_name: selectedPack.name,
+      },
+    ],
     value: selectedPack.price,
     currency: 'MAD',
   });
 }
-    const generated = `NOOR-${Math.floor(10000 + Math.random() * 90000)}`;
-    setOrderNumber(generated);
-    setOrderConfirmed(true);
+
+const generated = `NOOR-${Math.floor(10000 + Math.random() * 90000)}`;
+setOrderNumber(generated);
+setOrderConfirmed(true);
+
 
   } catch (error) {
     alert(
