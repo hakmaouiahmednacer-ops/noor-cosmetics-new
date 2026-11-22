@@ -101,7 +101,7 @@ if (typeof window !== 'undefined' && window.fbq) {
   });
 }   
 if (typeof window !== 'undefined' && (window as any).ttq) {
-  (window as any).ttq.track('SubmitForm', {
+  (window as any).ttq.track('Lead', {
     value: selectedPack.price,
     currency: 'MAD',
   });
