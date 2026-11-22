@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Truck, ShieldCheck, CheckCircle2, MessageCircle, Phone, MapPin, User, Package, Check, Sparkles } from 'lucide-react';
 import { ProductPack, CodOrderDetails } from '../types';
 import { PRODUCT_PACKS, MOROCCAN_CITIES, PRODUCT_IMAGE_PATH } from '../data/productData';
@@ -22,6 +22,21 @@ export const CodOrderSection: React.FC<CodOrderSectionProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderConfirmed, setOrderConfirmed] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
+  useEffect(() => {
+  if (typeof window !== 'undefined' && (window as any).ttq) {
+    (window as any).ttq.track('ViewContent', {
+      contents: [
+        {
+          content_id: selectedPack.id,
+          content_type: 'product',
+          content_name: selectedPack.name,
+        },
+      ],
+      value: selectedPack.price,
+      currency: 'MAD',
+    });
+  }
+}, [selectedPack.id, selectedPack.name, selectedPack.price]);
 
  const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
