@@ -1,16 +1,27 @@
-
 import React from "react";
 
 const WhatsAppButton: React.FC = () => {
   const phone = "212649415236";
   const message =
-    "Bonjour Noor Cosmetics, je souhaite avoir des informations sur vos produits.";
+    "Bonjour Noor Cosmetics, je souhaite commander la Crème Anti-Taches & Mélasma.";
 
-  const link = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  const link = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(message)}`;
+
+  const handleWhatsAppClick = () => {
+    if (typeof window !== "undefined" && (window as any).ttq) {
+      (window as any).ttq.track("Contact", {
+        content_name: "Bouton WhatsApp Flottant",
+      });
+    }
+    if (typeof window !== "undefined" && window.fbq) {
+      window.fbq("track", "Contact");
+    }
+  };
 
   return (
     <a
       href={link}
+      onClick={handleWhatsAppClick}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contacter Noor Cosmetics sur WhatsApp"

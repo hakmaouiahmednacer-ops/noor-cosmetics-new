@@ -18,125 +18,125 @@ export const CodOrderSection: React.FC<CodOrderSectionProps> = ({
   const [customCity, setCustomCity] = useState('');
   const [address, setAddress] = useState('');
   const [notes, setNotes] = useState('');
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderConfirmed, setOrderConfirmed] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
+
   useEffect(() => {
- if (typeof window !== 'undefined' && (window as any).ttq) {
-  (window as any).ttq.track('ViewContent', {
-    contents: [
-      {
-        content_id: selectedPack.id,
-        content_type: 'product',
-        content_name: selectedPack.name,
-      },
-    ],
-    value: selectedPack.price,
-    currency: 'MAD',
-  });
-}
-}, [selectedPack.id, selectedPack.name, selectedPack.price]);
-
- const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-
-  if (
-    !fullName.trim() ||
-    !phone.trim() ||
-    !address.trim() ||
-    (city === 'Autre ville au Maroc' && !customCity.trim())
-  ) {
-    return;
-  }
-
-  const skuByPackId: Record<string, string> = {
-    'pack-1': 'melasma',
-    'pack-2': 'pack-offre-cure',
-    'pack-3': 'pack-cure-complète-5650',
-  };
-
-  const sku = skuByPackId[selectedPack.id];
-
-  if (!sku) {
-   
-  }
-
-  const digits = phone.replace(/\D/g, '');
-  const formattedPhone = digits.startsWith('212')
-    ? digits
-    : digits.startsWith('0')
-      ? `212${digits.slice(1)}`
-      : `212${digits}`;
-
-  setIsSubmitting(true);
-
-  try {
-    const response = await fetch('/api/order', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        full_name: fullName.trim(),
-        phone: formattedPhone,
-        address: `${address.trim()}, ${finalCity}`,
-        sku,
-        qte: 1,
-        price: selectedPack.price,
-        note: '',
-        delivery_note: notes.trim(),
-      }),
-    });
-
-    const result = await response.json();
-
-    if (!response.ok || !result.success) {
-      throw new Error(result.message || "Échec de l'enregistrement.");
+    if (typeof window !== 'undefined' && (window as any).ttq) {
+      (window as any).ttq.track('ViewContent', {
+        contents: [
+          {
+            content_id: selectedPack.id,
+            content_type: 'product',
+            content_name: selectedPack.name,
+          },
+        ],
+        value: selectedPack.price,
+        currency: 'MAD',
+      });
     }
+  }, [selectedPack.id, selectedPack.name, selectedPack.price]);
 
-if (typeof window !== 'undefined' && window.fbq) {
-  window.fbq('track', 'Lead', {
-    value: selectedPack.price,
-    currency: 'MAD',
-  });
-}
-
-if (typeof window !== 'undefined' && (window as any).ttq) {
-  (window as any).ttq.track('Lead', {
-    contents: [
-      {
-        content_id: selectedPack.id,
-        content_type: 'product',
-        content_name: selectedPack.name,
-      },
-    ],
-    value: selectedPack.price,
-    currency: 'MAD',
-  });
-}
-
-const generated = `NOOR-${Math.floor(10000 + Math.random() * 90000)}`;
-setOrderNumber(generated);
-setOrderConfirmed(true);
-
-
-  } catch (error) {
-    alert(
-      error instanceof Error
-        ? error.message
-        : "Impossible d'enregistrer votre commande. Réessayez."
-    );
-  } finally {
-    setIsSubmitting(false);
-  }
-};
   const finalCity = city === 'Autre ville au Maroc' ? customCity || 'Autre ville' : city;
 
-  return ( 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (
+      !fullName.trim() ||
+      !phone.trim() ||
+      !address.trim() ||
+      (city === 'Autre ville au Maroc' && !customCity.trim())
+    ) {
+      return;
+    }
+
+    const skuByPackId: Record<string, string> = {
+      'pack-1': 'melasma',
+      'pack-2': 'pack-offre-cure',
+      'pack-3': 'pack-cure-complète-5650',
+    };
+
+    const sku = skuByPackId[selectedPack.id];
+
+    const digits = phone.replace(/\D/g, '');
+    const formattedPhone = digits.startsWith('212')
+      ? digits
+      : digits.startsWith('0')
+        ? `212${digits.slice(1)}`
+        : `212${digits}`;
+
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          full_name: fullName.trim(),
+          phone: formattedPhone,
+          address: `${address.trim()}, ${finalCity}`,
+          sku,
+          qte: 1,
+          price: selectedPack.price,
+          note: '',
+          delivery_note: notes.trim(),
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Échec de l'enregistrement.");
+      }
+
+      if (typeof window !== 'undefined' && (window as any).fbq) {
+        (window as any).fbq('track', 'Lead', {
+          value: selectedPack.price,
+          currency: 'MAD',
+        });
+      }
+
+      if (typeof window !== 'undefined' && (window as any).ttq) {
+        (window as any).ttq.identify({
+          phone_number: `+${formattedPhone}`,
+        });
+
+        (window as any).ttq.track('Lead', {
+          contents: [
+            {
+              content_id: selectedPack.id,
+              content_type: 'product',
+              content_name: selectedPack.name,
+            },
+          ],
+          value: selectedPack.price,
+          currency: 'MAD',
+        });
+      }
+
+      const generated = `NOOR-${Math.floor(10000 + Math.random() * 90000)}`;
+      setOrderNumber(generated);
+      setOrderConfirmed(true);
+    } catch (error) {
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Impossible d'enregistrer votre commande. Réessayez."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
     <section id="commander" className="py-16 md:py-24 bg-[#F5F8F5] border-y border-[#DECDB5]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 bg-[#164324] text-[#FAF7F2] px-4 py-1.5 text-xs uppercase tracking-wider font-semibold mb-3">
@@ -185,7 +185,9 @@ setOrderConfirmed(true);
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
               <a
-                href={`https://wa.me/212649415236?text=Salam%20Noor%20Cosmetics%2C%20je%20viens%20de%20passer%20la%20commande%20${orderNumber}%20au%20nom%20de%20${encodeURIComponent(fullName)}%20(%C3%A0%20${encodeURIComponent(finalCity)}).`}
+                href={`https://api.whatsapp.com/send?phone=212649415236&text=${encodeURIComponent(
+                  `Salam Noor Cosmetics, je viens de passer la commande ${orderNumber} au nom de ${fullName} (à ${finalCity}).`
+                )}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-3 bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs uppercase tracking-wider font-bold flex items-center justify-center gap-2 shadow-sm transition-colors"
@@ -206,7 +208,7 @@ setOrderConfirmed(true);
         ) : (
           /* COD Order Form */
           <form onSubmit={handleSubmit} className="bg-white border border-[#DECDB5] p-6 sm:p-10 shadow-lg space-y-8">
-            
+
             {/* Step 1: Pack Selection */}
             <div>
               <div className="flex items-center gap-2 mb-3">
