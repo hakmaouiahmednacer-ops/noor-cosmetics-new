@@ -48,8 +48,7 @@ export const HeroProduct: React.FC<HeroProductProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         
         {/* Left Column: Product Visuals (7 cols) */}
-        <div className="lg:col-span-7 flex flex-col gap-4">
-          
+<div className="order-2 lg:order-1 lg:col-span-7 flex flex-col gap-4">          
           {/* Main Visual Display */}
           <div className="relative aspect-square sm:aspect-[4/3] bg-[#F7F5EE] overflow-hidden border border-[#DECDB5] flex items-center justify-center">
             <img
@@ -131,8 +130,7 @@ export const HeroProduct: React.FC<HeroProductProps> = ({
         </div>
 
         {/* Right Column: Contiguous Purchase Module (5 cols) */}
-        <div className="lg:col-span-5 flex flex-col gap-5">
-          
+<div className="order-1 lg:order-2 lg:col-span-5 flex flex-col gap-5">          
           {/* Header Title & Subtitle */}
           <div className="border-b border-[#DECDB5] pb-4">
             <div className="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-[#C89005] font-semibold mb-1">
