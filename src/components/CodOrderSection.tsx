@@ -61,12 +61,18 @@ export const CodOrderSection: React.FC<CodOrderSectionProps> = ({
 
     const sku = skuByPackId[selectedPack.id];
 
-    const digits = phone.replace(/\D/g, '');
+let digits = phone.replace(/\D/g, '');
+    if (digits.startsWith('00212')) {
+      digits = digits.slice(2);
+    }
     const formattedPhone = digits.startsWith('212')
       ? digits
       : digits.startsWith('0')
         ? `212${digits.slice(1)}`
         : `212${digits}`;
+
+    const e164Phone = `+${formattedPhone}`;
+    const isValidMoroccanE164 = /^\+212[5-7]\d{8}$/.test(e164Phone);
 
     setIsSubmitting(true);
 
@@ -102,9 +108,11 @@ export const CodOrderSection: React.FC<CodOrderSectionProps> = ({
       }
 
       if (typeof window !== 'undefined' && (window as any).ttq) {
-        (window as any).ttq.identify({
-          phone_number: `+${formattedPhone}`,
-        });
+        if (isValidMoroccanE164) {
+          (window as any).ttq.identify({
+            phone_number: e164Phone,
+          });
+        }
 
         (window as any).ttq.track('Lead', {
           contents: [
