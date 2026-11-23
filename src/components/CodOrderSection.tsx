@@ -115,14 +115,9 @@ let digits = phone.replace(/\D/g, '');
         }
 
         (window as any).ttq.track('Lead', {
-          contents: [
-            {
-              content_id: selectedPack.id,
-              content_type: 'product',
-              content_name: selectedPack.name,
-            },
-          ],
-          value: selectedPack.price,
+          content_type: 'product',
+          content_name: selectedPack.name,
+          value: Number(selectedPack.price),
           currency: 'MAD',
         });
       }
