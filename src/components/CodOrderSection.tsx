@@ -185,7 +185,7 @@ setOrderConfirmed(true);
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
               <a
-                href={`https://wa.me/212600000000?text=Salam%20Noor%20Cosmetics%2C%20je%20viens%20de%20passer%20la%20commande%20${orderNumber}%20au%20nom%20de%20${encodeURIComponent(fullName)}%20(%C3%A0%20${encodeURIComponent(finalCity)}).`}
+                href={`https://wa.me/212649415236?text=Salam%20Noor%20Cosmetics%2C%20je%20viens%20de%20passer%20la%20commande%20${orderNumber}%20au%20nom%20de%20${encodeURIComponent(fullName)}%20(%C3%A0%20${encodeURIComponent(finalCity)}).`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-6 py-3 bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs uppercase tracking-wider font-bold flex items-center justify-center gap-2 shadow-sm transition-colors"

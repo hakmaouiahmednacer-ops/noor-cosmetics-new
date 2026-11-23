@@ -63,7 +63,7 @@ export const FaqSection: React.FC = () => {
           <span>Notre équipe au Maroc est disponible sur WhatsApp pour vous orienter.</span>
         </div>
         <a
-          href="https://wa.me/212600000000?text=Salam%20Noor%20Cosmetics%2C%20j%27ai%20une%20question%20concernant%20mes%20taches%20de%20m%C3%A9lasma."
+          href="https://wa.me/212649415236?text=Salam%20Noor%20Cosmetics%2C%20j%27ai%20une%20question%20concernant%20mes%20taches%20de%20m%C3%A9lasma."
           target="_blank"
           rel="noopener noreferrer"
           className="px-5 py-2.5 bg-[#25D366] hover:bg-[#20BD5A] text-white font-bold flex items-center gap-2 shrink-0 transition-colors shadow-xs"

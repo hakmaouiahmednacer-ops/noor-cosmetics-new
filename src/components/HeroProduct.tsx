@@ -263,7 +263,7 @@ export const HeroProduct: React.FC<HeroProductProps> = ({
 
             {/* WhatsApp Quick Consultation */}
             <a
-              href="https://wa.me/212600000000?text=Salam%2C%20je%20souhaite%20commander%20la%20Cr%C3%A8me%20Anti-Taches%20Noor%20Cosmetics"
+              href="https://wa.me/212649415236?text=Salam%2C%20je%20souhaite%20commander%20la%20Cr%C3%A8me%20Anti-Taches%20Noor%20Cosmetics"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full py-3 bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs uppercase tracking-wider font-semibold flex items-center justify-center gap-2 transition-colors shadow-xs"

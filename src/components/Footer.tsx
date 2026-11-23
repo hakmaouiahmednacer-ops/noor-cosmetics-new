@@ -65,7 +65,7 @@ export const Footer: React.FC = () => {
               Pour toute question ou commande directe :
             </p>
             <a
-              href="https://wa.me/212600000000?text=Salam%20Noor%20Cosmetics"
+              href="https://wa.me/212649415236?text=Salam%20Noor%20Cosmetics"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs font-bold transition-colors"
